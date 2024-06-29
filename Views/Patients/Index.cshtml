@@ -1,0 +1,39 @@
+﻿@model List<PatientNet.Models.Patient>
+
+<h1>
+	PATIENTS LIST
+</h1>
+
+<a class="btn btn-primary" asp-action="Add">Add a new patient</a>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				Name
+			</th>
+			<th>
+				Age (years)
+			</th>
+			<th>
+				Gender
+			</th>
+			<th>
+				Birthdate
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+			@foreach (var patient in Model)
+			{
+				<tr>
+					<td>@Html.DisplayFor(m => patient.Name)</td>
+					<td>@Html.DisplayFor(m => patient.Age)</td>
+					<td>@Html.DisplayFor(m => patient.Sex)</td>
+					<td>@Html.DisplayFor(m => patient.Birthdate)</td>
+				</tr>
+			}
+		
+	</tbody>
+</table>

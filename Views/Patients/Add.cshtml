@@ -1,0 +1,44 @@
+﻿@using PatientNet.Models.ViewModels
+@model PatientViewModel
+
+
+<h1>ADD PATIENT</h1>
+
+<form asp-action="Add" method="POST">
+
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+	<table class="table">
+			<tr>
+				<td>Name</td> <td><input asp-for="Name" type="text" placeholder="Name" /> </td>
+			</tr>
+			<tr>
+				<td>Age</td>
+			<td><input asp-for="Age" type="number" placeholder="Age" /></td>
+			</tr>
+			<tr>
+				<td>Birthdate</td>
+			<td><input asp-for="Birthdate" type="date" placeholder="Birthdate" /></td>
+			</tr>
+		<tr>
+			<td>Gender</td>
+				<td>
+				<select asp-for="Sex">
+						<option>Male</option>
+						<option>Female</option>
+					</select>
+				</td>
+			</tr>
+		<tr>
+			<td>Allergies</td>
+			<td><input asp-for="Allergies" type="text" placeholder="Allergies" /></td>
+			</tr>
+		<tr>
+			<td>Observations</td>
+			<td><textarea asp-for="Observations" width="500" height="30" placeholder="Observations"> </textarea></td>
+			</tr>
+	</table>
+	
+	<input class="btn btn-success" type="submit" name="name" value="Add new patient" />
+
+</form>
