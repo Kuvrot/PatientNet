@@ -17,7 +17,23 @@ namespace PatientNet.Controllers
 
 		public async Task<IActionResult> Index()
 		{
+			
 			return View(await _context.Patients.ToListAsync());
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Index (string search)
+		{
+			var patients = from p in _context.Patients
+						   select p;
+
+			if (!String.IsNullOrEmpty(search))
+			{
+				patients = patients.Where(p => p.Name.Contains(search));
+			}
+
+			return View(await patients.ToListAsync());
+
 		}
 
 		public IActionResult Add()
@@ -48,6 +64,21 @@ namespace PatientNet.Controllers
 			}
 
 			return View();
+		}
+
+		public IActionResult NewConsult()
+		{
+			return View();
+		}
+
+		public async Task<IActionResult> PatientHistory(int id)
+		{
+
+			var history = from h in _context.Consults select h;
+			history = history.Where(h => h.PatientId == id);
+
+
+			return View(await history.ToListAsync());
 		}
 
 	}

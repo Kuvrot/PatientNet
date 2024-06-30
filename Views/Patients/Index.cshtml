@@ -1,8 +1,21 @@
 ﻿@model List<PatientNet.Models.Patient>
 
-<h1>
-	PATIENTS LIST
-</h1>
+
+<table class="table">
+    <tr>
+		<td>
+			<h1 class="row">
+				PATIENTS LIST
+			</h1>
+		</td>
+		<td> 
+			<form asp-action="Index" method="post">
+				<input type="text"  value="" name="search" style="align-content:right;" />
+				<input type="submit" value="Search" class="btn btn-dark" />
+			</form>
+		</td>
+	</tr>
+</table>
 
 <a class="btn btn-primary" asp-action="Add">Add a new patient</a>
 
@@ -21,6 +34,12 @@
 			<th>
 				Birthdate
 			</th>
+			<th>
+			</th>
+			<th>
+			</th>
+			<th>
+			</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -32,6 +51,9 @@
 					<td>@Html.DisplayFor(m => patient.Age)</td>
 					<td>@Html.DisplayFor(m => patient.Sex)</td>
 					<td>@Html.DisplayFor(m => patient.Birthdate)</td>
+				<td><form href="#"> <input type="type" class="btn btn-success shadow" name="name" value="New consult" /></form></td>
+				<td><form asp-action="PatientHistory" method="post"> <input type="text" name="id" value="@patient.PatientId" hidden /> <input type="submit" class="btn btn-warning shadow" value="See history" /></form></td>
+					<td><a href="#" class="btn btn-danger shadow">Delete patient</a></td>
 				</tr>
 			}
 		
