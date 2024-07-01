@@ -51,7 +51,7 @@
 					<td>@Html.DisplayFor(m => patient.Age)</td>
 					<td>@Html.DisplayFor(m => patient.Sex)</td>
 					<td>@Html.DisplayFor(m => patient.Birthdate)</td>
-				<td><form href="#"> <input type="type" class="btn btn-success shadow" name="name" value="New consult" /></form></td>
+				<td><form asp-action="NewConsult" method="post"> <input type="text" name="name" value="@patient.Name" hidden /><input type="submit" class="btn btn-success shadow" value="New consult" /></form></td>
 				<td><form asp-action="PatientHistory" method="post"> <input type="text" name="id" value="@patient.PatientId" hidden /> <input type="submit" class="btn btn-warning shadow" value="See history" /></form></td>
 					<td><a href="#" class="btn btn-danger shadow">Delete patient</a></td>
 				</tr>

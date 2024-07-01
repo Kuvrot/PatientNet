@@ -1,0 +1,40 @@
+﻿@model List<PatientNet.Models.Patient>
+
+<h1>NEW CONSULT</h1>
+
+<form asp-action="AddNewConsult"  method="post">
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Consult date</th>
+            <th>Patient name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input type="date" name="date" value="" /></td>
+                @foreach (var patient in Model)
+                {
+                    <td> @Html.DisplayFor(m => patient.Name)</td>
+                    <input type="text" name="patientId" value="@patient.PatientId" hidden/>
+                }
+            </tr>
+    </tbody>
+</table>
+
+
+    <table class="table">
+        <tr>
+            <td>Observations</td>
+            <td><textarea name="observations"></textarea></td>
+        </tr>
+        <tr>
+            <td>Diagnostic</td> 
+            <td><textarea name="diagnostic"></textarea></td>
+        </tr>
+    </table>
+
+    <input type="submit" class="btn btn-success" value="End consult" />
+
+</form>

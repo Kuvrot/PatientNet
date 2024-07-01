@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using PatientNet.Models;
 using PatientNet.Models.ViewModels;
 
@@ -17,7 +18,6 @@ namespace PatientNet.Controllers
 
 		public async Task<IActionResult> Index()
 		{
-			
 			return View(await _context.Patients.ToListAsync());
 		}
 
@@ -33,7 +33,6 @@ namespace PatientNet.Controllers
 			}
 
 			return View(await patients.ToListAsync());
-
 		}
 
 		public IActionResult Add()
@@ -45,7 +44,6 @@ namespace PatientNet.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Add(PatientViewModel patientViewModel)
 		{
-
 			if (ModelState.IsValid)
 			{
 				var patient = new Patient()
@@ -66,17 +64,36 @@ namespace PatientNet.Controllers
 			return View();
 		}
 
-		public IActionResult NewConsult()
-		{
-			return View();
-		}
+		[HttpPost]
+        public async Task<IActionResult> NewConsult(string name)
+        {
+			var patient = from p in _context.Patients select p;
+			patient = patient.Where(p => p.Name == name);
+            return View(await patient.ToListAsync());
+        }
 
-		public async Task<IActionResult> PatientHistory(int id)
+		[HttpPost]
+        public async Task<IActionResult> AddNewConsult(string date, string diagnostic, string observations, int patientId)
+        {
+			var consult = new Consult()
+			{
+				PatientId = patientId,
+				Date = date,
+				Observations = observations,
+				Diagnostic = diagnostic
+			};
+
+			_context.Add(consult);
+			await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> PatientHistory(int id)
 		{
 
 			var history = from h in _context.Consults select h;
 			history = history.Where(h => h.PatientId == id);
-
 
 			return View(await history.ToListAsync());
 		}
